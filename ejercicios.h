@@ -2,6 +2,7 @@
 #define EJERCICIOS_H
 
 #include "definiciones.h"
+#include "auxiliares.h"
 
 bool toroideValido(vector<vector<bool>> const &t);
 bool toroideMuerto(toroide const &t);
