@@ -125,8 +125,16 @@ int seleccionNatural(vector <toroide> ts) {
 
 // EJERCICIO 12
 toroide fusionar(toroide const &t, toroide const &u) {
-    toroide out;
-    // Implementacion
+    toroide out(t.size(),vector<bool>(t[0].size(), false));
+    int filas = t.size();
+    int columnas = t[0].size();
+
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            out[i][j] = t[i][j] && u[i][j];
+        }
+    }
+
     return out;
 }
 
