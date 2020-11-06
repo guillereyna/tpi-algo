@@ -118,10 +118,18 @@ bool primosLejanos(toroide const &t, toroide const &u) {
 
 // EJERCICIO 11
 int seleccionNatural(vector <toroide> ts) {
-    int resp = -1;
-	// Implementacion
+    int resp;
+    vector<toroide> ts0;
+    while (cantidadDeToroidesVivos(ts)>0){
+        ts0 = ts;
+        for (int i = 0; i < ts.size(); ++i) {
+            evolucionToroide(ts[i]);
+        }
+    }
+    resp = posicionDelPrimerToroideVivo(ts0);
     return resp;
 }
+
 
 // EJERCICIO 12
 toroide fusionar(toroide const &t, toroide const &u) {
@@ -141,13 +149,29 @@ toroide fusionar(toroide const &t, toroide const &u) {
 // EJERCICIO 13
 bool vistaTrasladada(toroide const &t, toroide const &u){
 	bool resp = false;
-    // Implementacion
+	int filas = t.size();
+	int columnas = t[0].size();
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            toroide traslacion = traslacionPorXY(u,i,j);
+            resp = resp || (traslacion == t);
+        }
+    }
     return resp;
 }
 
 // EJERCICIO 14
 int menorSuperficieViva(toroide const &t){
-	int resp = -1;
-	// Implementacion
+	int resp = menorRectanguloValido(t);
+	int filas = t.size();
+	int columnas = t[0].size();
+	toroide traslacion(filas,vector<bool>(columnas,false));
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            traslacion = traslacionPorXY(t,i,j);
+            int menorSuperficie = menorRectanguloValido(traslacion);
+            if (menorSuperficie < resp) resp = menorSuperficie;
+        }
+    }
 	return resp;
 }

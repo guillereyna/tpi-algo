@@ -4,12 +4,12 @@
 
 using namespace std;
 
-int mod(int n, int m){ //funciona para m > 0, |n| < m
+int mod(int n, int m){ //funciona para m > 0, devuelve siempre un número positivo
     int resultado;
-    if(n>=0){
+    if (n>=0) {
         resultado = n%m;
-    }else{
-        resultado = m + n;
+    } else {
+        resultado = (m+(n%m))%m;
     }
     return resultado;
 }
@@ -37,7 +37,7 @@ float cantidadVivas(toroide const &t){
     return cantVivas;
 }
 
-bool pertenece(toroide const &t, vector<toroide> &ts){
+bool pertenece(toroide const &t, vector<toroide> const &ts){
     bool resp = false;
     int n = ts.size();
     for (int i = 0; i < n; ++i) {
@@ -59,6 +59,62 @@ bool esEvolucionDe(toroide const &t1, toroide const &t2, int &p){
         p++;
     }
     resp = evo == t2;
+    return resp;
+}
+
+int cantidadDeToroidesVivos(vector<toroide> ts){
+    int resultado = 0;
+    for (int i = 0; i < ts.size(); ++i) {
+        if (cantidadVivas(ts[i])>0){
+            resultado++;
+        }
+    }
+    return resultado;
+}
+
+int posicionDelPrimerToroideVivo(vector<toroide> ts){
+    int posicion = -1;
+    int i = 0;
+    while (posicion == -1 && i<ts.size()){
+        if (cantidadVivas(ts[i])>0){
+            posicion = i;
+        }
+        i++;
+    }
+    return posicion;
+}
+
+toroide traslacionPorXY(toroide const &t, int x, int y){
+    int filas = t.size();
+    int columnas = t[0].size();
+    toroide out(filas,vector<bool>(columnas,false));
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            out[i][j] = t[mod(i+x,filas)][mod(j+y,columnas)];
+        }
+    }
+    return out;
+}
+
+int menorRectanguloValido(toroide const &t){
+    int resp = 0;
+    int filaMin = t.size();
+    int filaMax = -1;
+    int colMin = t[0].size();
+    int colMax = -1;
+    for (int i = 0; i < t.size(); ++i) {
+        for (int j = 0; j < t[i].size(); ++j) {
+            if (t[i][j]){
+                if (i < filaMin ) filaMin = i;
+                if (i > filaMax ) filaMax = i;
+                if (j < colMin ) colMin = j;
+                if (j > colMax ) colMax = j;
+            }
+        }
+    }
+
+    resp = (filaMax-filaMin+1)*(colMax-colMin+1);
+
     return resp;
 }
 
