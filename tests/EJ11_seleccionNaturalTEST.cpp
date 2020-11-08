@@ -69,7 +69,7 @@ TEST(seleccionNaturalTEST, t2_4ticks) {
     EXPECT_EQ(res, 1);
 }
 
-TEST(seleccionNaturalTEST, unoTodoVivoYUnoMuerto){
+TEST(seleccionNaturalTEST, muerenAlMismoTiempo){
     toroide t1 = {
             {true, true, true},
             {true, true, true},
@@ -77,7 +77,7 @@ TEST(seleccionNaturalTEST, unoTodoVivoYUnoMuerto){
     toroide t2 = {
             {false, false, false},
             {false, false, false},
-            {false, false, false},
+            {false, true, false},
             {false, false, false} };
 
     vector<toroide> ts;
