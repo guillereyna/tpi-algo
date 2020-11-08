@@ -14,3 +14,10 @@ TEST(cantidadVecinosVivosTEST, seisVivos){
 
     EXPECT_EQ(cantidadVecinosVivos(t, 0, 3), 6);
 }
+
+TEST(cantidadVecinosVivosTEST, ceroVecinosVivos){
+    toroide t(5,vector<bool>(4,false));
+    t[2][3] = true;
+    int res = cantidadVecinosVivos(t,2,3);
+    EXPECT_EQ(res,0);
+}

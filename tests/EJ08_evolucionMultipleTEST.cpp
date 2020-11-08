@@ -18,3 +18,16 @@ TEST(evolucionMultipleTEST, toroideDiagonalTresPorTresUnPaso){
     toroide res = evolucionMultiple(t, 1);
     EXPECT_EQ(res, evo_t);
 }
+
+TEST(evolucionMultipleTEST, evolucion4ticks){
+    toroide t1 = {{false, false, false, true},
+                  {true, false, true, false},
+                  {false, false, true, false},
+                  {false, false, false, false}};
+    toroide t2 = {{true, false, true, false},
+                  {true, true, true, true},
+                  {true, true, true, true},
+                  {false, false, false, false}};
+    toroide res = evolucionMultiple(t1,4);
+    EXPECT_EQ(res, t2);
+}

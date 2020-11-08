@@ -31,3 +31,12 @@ TEST(menorSuperficieVivaTEST, toroide9Traslacion){
     int res = menorSuperficieViva(t);
     EXPECT_EQ(res, 9);
 }
+
+TEST(menorSuperficieVivaTEST, toroide1){
+    toroide t =     {{false, false, false, false},
+                     {false, false, false, false},
+                     {false, false, true, false},
+                     {false, false, false, false}};
+    int res = menorSuperficieViva(t);
+    EXPECT_EQ(res,1);
+}

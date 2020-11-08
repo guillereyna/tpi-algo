@@ -22,3 +22,29 @@ TEST(primosLejanosTEST, toroideHorizontalPeriodico2){
     res = primosLejanos(t2, t1);
     EXPECT_TRUE(res);
 }
+
+TEST(primosLejanosTEST, toroide1primoDe2){
+    toroide t1 = {{false, false, false, true},
+                  {true, false, true, false},
+                  {false, false, true, false},
+                  {false, false, false, false}};
+    toroide t2 = {{true, false, true, false},
+                  {true, true, true, true},
+                  {true, true, true, true},
+                  {false, false, false, false}};
+    bool res = primosLejanos(t1,t2);
+    EXPECT_TRUE(res);
+}
+
+TEST(primosLejanosTEST, toroide2primoDe1){
+    toroide t1 = {{false, false, false, true},
+                  {true, false, true, false},
+                  {false, false, true, false},
+                  {false, false, false, false}};
+    toroide t2 = {{true, false, true, false},
+                  {true, true, true, true},
+                  {true, true, true, true},
+                  {false, false, false, false}};
+    bool res = primosLejanos(t2,t1);
+    EXPECT_TRUE(res);
+}

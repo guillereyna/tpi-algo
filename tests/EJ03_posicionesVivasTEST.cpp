@@ -19,3 +19,8 @@ TEST(posicionesVivasTEST, toroideDiagonalVivas){
     EXPECT_EQ(ordenar(vivas), ordenar(res));
 }
 
+TEST(posicionesVivasTEST, toroideMuerto){
+    toroide muerto(5,vector<bool>(4,false));
+    vector<posicion> vivas = {};
+    vector<posicion> res = posicionesVivas(muerto);
+}
