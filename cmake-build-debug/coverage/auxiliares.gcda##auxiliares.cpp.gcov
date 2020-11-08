@@ -1,0 +1,230 @@
+        -:    0:Source:/cygdrive/d/Universidad/Algoritmos y Estructuras de Datos I/TPI/TPI-template/TPI-toroide/auxiliares.cpp
+        -:    0:Graph:/cygdrive/d/Universidad/Algoritmos y Estructuras de Datos I/TPI/TPI-template/TPI-toroide/cmake-build-debug/CMakeFiles/juegoDeLaVida.dir/auxiliares.gcno
+        -:    0:Data:/cygdrive/d/Universidad/Algoritmos y Estructuras de Datos I/TPI/TPI-template/TPI-toroide/cmake-build-debug/CMakeFiles/juegoDeLaVida.dir/auxiliares.gcda
+        -:    0:Runs:1
+        -:    1:#include "definiciones.h"
+        -:    2:#include "auxiliares.h"
+        -:    3:#include "ejercicios.h"
+        -:    4:
+        -:    5:using namespace std;
+        -:    6:
+     2081:    7:int mod(int n, int m){ //funciona para m > 0, devuelve siempre un número positivo
+        -:    8:    int resultado;
+     2081:    9:    if (n>=0) {
+     2081:    9-block  0
+     1866:   10:        resultado = n%m;
+     1866:   10-block  0
+        -:   11:    } else {
+      215:   12:        resultado = (m+(n%m))%m;
+      215:   12-block  0
+        -:   13:    }
+     2081:   14:    return resultado;
+     2081:   14-block  0
+        -:   15:}
+        -:   16:
+      506:   17:bool sonVecinos(int i, int j, int f, int c, toroide const &t){
+      506:   18:    int filas = t.size();
+      506:   18-block  0
+      506:   19:    int columnas = t[0].size();
+      123:   20:    bool resp = (i != f || j != c)
+      123:   20-block  0
+      473:   21:                && (i == mod(f-1,filas) || i == f || i == mod(f+1,filas))
+      473:   21-block  0
+      347:   21-block  1
+      257:   21-block  2
+     1012:   22:                && (j == mod(c-1,columnas) || j == c || j == mod(c+1,columnas));
+      341:   22-block  0
+      240:   22-block  1
+      174:   22-block  2
+      269:   22-block  3
+      237:   22-block  4
+      506:   23:    return resp;
+      506:   23-block  0
+        -:   24:}
+        -:   25:
+       11:   26:float cantidadVivas(toroide const &t){
+       11:   27:    float cantVivas = 0;
+       11:   28:    int filas = t.size();
+       11:   28-block  0
+       11:   29:    int columnas = t[0].size();
+       58:   30:    for (int i = 0; i < filas; ++i) {
+       58:   30-block  0
+       47:   30-block  1
+      193:   31:        for (int j = 0; j < columnas; ++j) {
+       47:   31-block  0
+      193:   31-block  1
+      146:   31-block  2
+      146:   32:            if (t[i][j]){
+      146:   32-block  0
+       43:   33:                cantVivas++;
+       43:   33-block  0
+        -:   34:            }
+        -:   35:        }
+        -:   36:    }
+       11:   37:    return cantVivas;
+       11:   37-block  0
+        -:   38:}
+        -:   39:
+        1:   40:bool pertenece(toroide const &t, vector<toroide> const &ts){
+        1:   41:    bool resp = false;
+        1:   42:    int n = ts.size();
+        1:   42-block  0
+        2:   43:    for (int i = 0; i < n; ++i) {
+        2:   43-block  0
+       1*:   44:        resp = resp || t == ts[i];
+        1:   44-block  0
+        1:   44-block  1
+    %%%%%:   44-block  2
+        1:   44-block  3
+        1:   44-block  4
+        -:   45:    }
+        1:   46:    return resp;
+        1:   46-block  0
+        -:   47:}
+        -:   48:
+        3:   49:bool esEvolucionDe(toroide const &t1, toroide const &t2, int &p){
+        3:   50:    bool resp = false;
+        3:   51:    p = 1;
+        6:   52:    toroide evo = t1;
+        3:   52-block  0
+    $$$$$:   52-block  1
+        3:   53:    evolucionToroide(evo);
+        3:   53-block  0
+        3:   54:    vector<toroide> historialEvoluciones; //este vector salva de que el ciclo se cuelgue en el caso de que el toroide entre en un periodo
+        3:   54-block  0
+    $$$$$:   54-block  1
+        3:   55:    historialEvoluciones.push_back(t1);
+        4:   56:    while (!toroideMuerto(evo) && (evo != t2) && !pertenece(evo,historialEvoluciones)){
+        4:   56-block  0
+        4:   56-block  1
+        4:   56-block  2
+        4:   56-block  3
+        1:   56-block  4
+        1:   56-block  5
+        1:   56-block  6
+        3:   56-block  7
+        4:   56-block  8
+        1:   57:        historialEvoluciones.push_back(evo);
+        1:   57-block  0
+        1:   58:        evolucionToroide(evo);
+        1:   58-block  0
+        1:   59:        p++;
+        1:   59-block  0
+        -:   60:    }
+        3:   61:    resp = evo == t2;
+        3:   61-block  0
+        6:   62:    return resp;
+        3:   62-block  0
+        3:   62-block  1
+        -:   63:}
+        -:   64:
+        3:   65:int cantidadDeToroidesVivos(vector<toroide> ts){
+        3:   66:    int resultado = 0;
+       12:   67:    for (int i = 0; i < ts.size(); ++i) {
+        3:   67-block  0
+       12:   67-block  1
+        9:   67-block  2
+        9:   68:        if (cantidadVivas(ts[i])>0){
+        9:   68-block  0
+        4:   69:            resultado++;
+        4:   69-block  0
+        -:   70:        }
+        -:   71:    }
+        3:   72:    return resultado;
+        3:   72-block  0
+        -:   73:}
+        -:   74:
+        1:   75:int posicionDelPrimerToroideVivo(vector<toroide> ts){
+        1:   76:    int posicion = -1;
+        1:   77:    int i = 0;
+        1:   77-block  0
+        2:   78:    while (posicion == -1 && i<ts.size()){
+        2:   78-block  0
+        1:   78-block  1
+        1:   78-block  2
+        1:   78-block  3
+        2:   78-block  4
+        1:   79:        if (cantidadVivas(ts[i])>0){
+        1:   79-block  0
+        1:   80:            posicion = i;
+        1:   80-block  0
+        -:   81:        }
+        1:   82:        i++;
+        1:   82-block  0
+        -:   83:    }
+        1:   84:    return posicion;
+        1:   84-block  0
+        -:   85:}
+        -:   86:
+       34:   87:toroide traslacionPorXY(toroide const &t, int x, int y){
+       34:   88:    int filas = t.size();
+       34:   88-block  0
+       34:   89:    int columnas = t[0].size();
+       68:   90:    toroide out(filas,vector<bool>(columnas,false));
+       34:   90-block  0
+    $$$$$:   90-block  1
+    $$$$$:   90-block  2
+      152:   91:    for (int i = 0; i < filas; ++i) {
+      152:   91-block  0
+      118:   91-block  1
+      536:   92:        for (int j = 0; j < columnas; ++j) {
+      118:   92-block  0
+      536:   92-block  1
+      418:   93:            out[i][j] = t[mod(i+x,filas)][mod(j+y,columnas)];
+      418:   93-block  0
+        -:   94:        }
+        -:   95:    }
+       34:   96:    return out;
+       34:   96-block  0
+       34:   96-block  1
+        -:   97:}
+        -:   98:
+       17:   99:int menorRectanguloValido(toroide const &t){
+       17:  100:    int resp = 0;
+       17:  101:    int filaMin = t.size();
+       17:  101-block  0
+       17:  102:    int filaMax = -1;
+       17:  103:    int colMin = t[0].size();
+       17:  104:    int colMax = -1;
+       85:  105:    for (int i = 0; i < t.size(); ++i) {
+       85:  105-block  0
+       68:  105-block  1
+      340:  106:        for (int j = 0; j < t[i].size(); ++j) {
+       68:  106-block  0
+      340:  106-block  1
+      272:  106-block  2
+      272:  107:            if (t[i][j]){
+      272:  107-block  0
+       68:  108:                if (i < filaMin ) filaMin = i;
+       68:  108-block  0
+       17:  108-block  1
+       68:  109:                if (i > filaMax ) filaMax = i;
+       68:  109-block  0
+       34:  109-block  1
+       68:  110:                if (j < colMin ) colMin = j;
+       68:  110-block  0
+       24:  110-block  1
+       68:  111:                if (j > colMax ) colMax = j;
+       68:  111-block  0
+       39:  111-block  1
+        -:  112:            }
+        -:  113:        }
+        -:  114:    }
+        -:  115:
+       17:  116:    resp = (filaMax-filaMin+1)*(colMax-colMin+1);
+        -:  117:
+       17:  118:    return resp;
+       17:  118-block  0
+        -:  119:}
+        -:  120:
+        6:  121:pair<int,int> mp(int a, int b) {
+        6:  122:    return make_pair(a, b);
+        6:  122-block  0
+        -:  123:}
+        -:  124://No pueden usar esta función para resolver el TPI.
+        -:  125://Tampoco pueden usar iteradores, como usa esta función.
+        2:  126:vector<posicion> ordenar(vector<posicion> &v) {
+        2:  127:    sort(v.begin(), v.end());
+        2:  127-block  0
+        2:  128:    return v;
+        -:  129:}

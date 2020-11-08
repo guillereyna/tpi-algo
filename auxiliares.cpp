@@ -51,7 +51,7 @@ bool esEvolucionDe(toroide const &t1, toroide const &t2, int &p){
     p = 1;
     toroide evo = t1;
     evolucionToroide(evo);
-    vector<toroide> historialEvoluciones;
+    vector<toroide> historialEvoluciones; //este vector salva de que el ciclo se cuelgue en el caso de que el toroide entre en un periodo
     historialEvoluciones.push_back(t1);
     while (!toroideMuerto(evo) && (evo != t2) && !pertenece(evo,historialEvoluciones)){
         historialEvoluciones.push_back(evo);
