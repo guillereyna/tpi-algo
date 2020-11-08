@@ -21,3 +21,13 @@ TEST(cantidadVecinosVivosTEST, ceroVecinosVivos){
     int res = cantidadVecinosVivos(t,2,3);
     EXPECT_EQ(res,0);
 }
+
+TEST(cantidadVecinosVivosTEST, todosLosVecinosTrasladadosVivos){
+    toroide t = {
+            {false, false, false, true},
+            {false, false, true, true},
+            {false, false, false, false},
+            {true, true, false, true}};
+
+    EXPECT_EQ(cantidadVecinosVivos(t, 0, 0), 5);
+}

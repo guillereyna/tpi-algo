@@ -21,3 +21,12 @@ TEST(toroideValidoTEST, diagonalTresPorTres) {
     };
     EXPECT_TRUE(toroideValido(t));
 }
+
+TEST(toroideValidoTEST, distintaLongitudDeColumnas){
+    toroide t = { {true, false},
+                  {false,true,true,true},
+                  {true,true,false,false,false},
+                  {false} };
+
+    EXPECT_FALSE(toroideValido(t));
+}

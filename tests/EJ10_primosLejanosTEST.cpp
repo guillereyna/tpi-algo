@@ -48,3 +48,33 @@ TEST(primosLejanosTEST, toroide2primoDe1){
     bool res = primosLejanos(t2,t1);
     EXPECT_TRUE(res);
 }
+
+TEST(primosLejanosTEST, toroidePeriodico){
+    toroide t = {{true, false, false, false},
+                 {true, false, false, false},
+                 {false, false, true, true},
+                 {false, false, false, false}};
+
+    bool res = primosLejanos(t, t);
+    EXPECT_TRUE(res);
+}
+
+TEST(primosLejanosTEST, toroidesNoPrimos){
+    toroide t1 = {
+            {false, false, false, false, false},
+            {false, false, false, false, false},
+            {false, true, true, true, false},
+            {false, false, false, false, false},
+            {false, false,false, false, false} };
+    toroide t2 = {
+            {true, true, true, true, true},
+            {false, false, false, false, false},
+            {true, true, true, true, true},
+            {false, false, false, false, false},
+            {true, true, true, true, true} };
+
+    bool res = primosLejanos(t1, t2);
+    EXPECT_FALSE(res);
+    res = primosLejanos(t2, t1);
+    EXPECT_FALSE(res);
+}

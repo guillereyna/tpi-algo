@@ -68,3 +68,22 @@ TEST(seleccionNaturalTEST, t2_4ticks) {
     int res = seleccionNatural(ts);
     EXPECT_EQ(res, 1);
 }
+
+TEST(seleccionNaturalTEST, unoTodoVivoYUnoMuerto){
+    toroide t1 = {
+            {true, true, true},
+            {true, true, true},
+            {true, true, true}};
+    toroide t2 = {
+            {false, false, false},
+            {false, false, false},
+            {false, false, false},
+            {false, false, false} };
+
+    vector<toroide> ts;
+    ts.push_back(t1);
+    ts.push_back(t2);
+
+    int res = seleccionNatural(ts);
+    EXPECT_EQ(res, 0);
+}

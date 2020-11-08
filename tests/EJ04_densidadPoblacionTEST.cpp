@@ -26,3 +26,11 @@ TEST(densidadPoblacionTEST, toroideMuerto){
     float res = densidadPoblacion(t);
     EXPECT_NEAR(res, 0, 0.01);
 }
+
+TEST(densidadPoblacionTEST, toroide_50_50){
+    toroide t = { {true, true, true},
+                  {true, true, true},
+                  {false, false, false},
+                  {false, false, false} };
+    EXPECT_NEAR(densidadPoblacion(t), 0.5, 0.01);
+}

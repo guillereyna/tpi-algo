@@ -31,3 +31,18 @@ TEST(evolucionMultipleTEST, evolucion4ticks){
     toroide res = evolucionMultiple(t1,4);
     EXPECT_EQ(res, t2);
 }
+
+TEST(evolucionMultipleTEST, evolucionHastaQueMuere){
+    toroide t1 = { {false, false, false, true},
+                   {true, false, true, false},
+                   {false, false, true, false},
+                   {false, false, false, false}};
+
+    toroide muerto = { {false, false, false, false},
+                        {false, false, false, false},
+                        {false, false, false, false},
+                        {false, false, false, false}, };
+    toroide res = evolucionMultiple(t1,6);
+
+    EXPECT_EQ(res, muerto);
+}
