@@ -65,7 +65,7 @@ TEST(primosLejanosTEST, toroidesNoPrimos){
             {false, false, false, false, false},
             {false, true, true, true, false},
             {false, false, false, false, false},
-            {false, false,false, false, false} };
+            {false, false, false, false, false} };
     toroide t2 = {
             {true, true, true, true, true},
             {false, false, false, false, false},
@@ -76,5 +76,17 @@ TEST(primosLejanosTEST, toroidesNoPrimos){
     bool res = primosLejanos(t1, t2);
     EXPECT_FALSE(res);
     res = primosLejanos(t2, t1);
+    EXPECT_FALSE(res);
+}
+
+TEST(primosLejanosTEST, toroidesMismosNoPrimos){
+    toroide t = {
+            {false, false, false, false, false},
+            {false, false, false, false, false},
+            {false, true, true, false, false},
+            {false, false, false, false, false},
+            {false, false, false, false, false} };
+
+    bool res = primosLejanos(t, t);
     EXPECT_FALSE(res);
 }
